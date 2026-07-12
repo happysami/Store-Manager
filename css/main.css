@@ -1,0 +1,119 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --sidebar-bg: #343a40;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef2ff 100%);
+  color: var(--text);
+}
+
+button, input, select { font: inherit; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* --- App Header --- */
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  gap: 15px;
+}
+
+.app-header h1 { margin: 0; font-size: 1.5rem; flex-grow: 1; }
+
+/* --- Sidebar Menu --- */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background-color: var(--sidebar-bg);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+.sidebar.active { width: 250px; }
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  background: none;
+  color: white;
+  padding: 15px 20px;
+  text-align: left;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sidebar button:hover { background-color: #495057; }
+
+/* --- View Switching --- */
+.view-panel { display: none; }
+.view-panel.active { display: block; }
+
+/* --- Buttons & Components --- */
+.btn-danger,
+.export-btn,
+.sell-btn,
+.edit-btn,
+.delete-btn,
+#submitFormBtn,
+#cancelEditBtn,
+.btn-block {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-danger,
+.export-btn,
+#submitFormBtn,
+.btn-block {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.2);
+}
+
+.btn-danger {
+  background: var(--danger);
+  box-shadow: none;
+}
+
+button:hover { transform: translateY(-1px); }
+
+/* --- Footer Styles --- */
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  color: #888;
+  font-size: 14px;
+  border-top: 1px solid #eee;
+}
+

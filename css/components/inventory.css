@@ -1,0 +1,165 @@
+.form-container,
+.table-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.top-menu {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+}
+
+.menu-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.menu-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.muted-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: #f9fafb;
+}
+
+.history-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.history-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.history-total {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.empty-state {
+  color: var(--muted);
+  padding: 16px 0;
+}
+
+.form-group {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+#submitFormBtn,
+#cancelEditBtn {
+  justify-self: start;
+}
+
+.cancel-btn {
+  display: none;
+  background: #f3f4f6;
+  color: var(--text);
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  background: #f9fafb;
+}
+
+.action-cells {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sell-btn {
+  background: var(--success);
+  color: #fff;
+}
+
+.edit-btn {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.status-stock {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.status-partial {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.status-sold {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .header-flex,
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
