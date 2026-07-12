@@ -49,10 +49,10 @@
 
     /* 2. Transform the side menu into a hidden sidebar drawer */
     .side-menu {
-        position: fixed;
-        top: 0;
-        left: -260px; /* Fully off-screen to the left */
-        width: 250px !important;
+      position: fixed;
+      top: 0;
+      left: 0; /* Visible on mobile by default */
+      width: 250px !important;
         height: 100vh;
         z-index: 999;
         transition: left 0.3s ease; /* Smooth slide-out action */

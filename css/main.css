@@ -41,39 +41,89 @@ button, input, select { font: inherit; }
 
 .app-header h1 { margin: 0; font-size: 1.5rem; flex-grow: 1; }
 
-/* --- Sidebar Menu --- */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  background-color: var(--sidebar-bg);
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
+/* --- Sidebar Layout --- */
+.layout-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
 }
 
-.sidebar.active { width: 250px; }
+.sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px 12px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+  height: fit-content;
+}
 
-.sidebar button {
+.content-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.menu-btn {
   display: block;
   width: 100%;
-  background: none;
-  color: white;
-  padding: 15px 20px;
   text-align: left;
   border: none;
-  font-size: 18px;
+  background: transparent;
+  color: var(--text);
+  padding: 14px 16px;
+  border-radius: 12px;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.sidebar button:hover { background-color: #495057; }
+.menu-btn.active,
+.menu-btn:hover {
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--primary-dark);
+}
+
+/* Collapsible behavior for hover-expand */
+.side-menu,
+.sidebar {
+  transition: width 0.25s ease, padding 0.25s ease;
+  overflow: hidden;
+}
+
+.side-menu.collapsed,
+.sidebar.collapsed {
+  width: 64px !important;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.side-menu.expanded,
+.sidebar.expanded {
+  width: 250px !important;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.side-menu .menu-btn,
+.sidebar .menu-btn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* --- View Switching --- */
 .view-panel { display: none; }
 .view-panel.active { display: block; }
+
+@media (max-width: 1024px) {
+  .layout-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+}
 
 /* --- Buttons & Components --- */
 .btn-danger,

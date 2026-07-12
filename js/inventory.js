@@ -231,3 +231,43 @@ function showView(viewId) {
         // to display the side-menu on phones, replace 'active' with that class name.
     }
 }
+
+// Sidebar hover expand/collapse behavior
+function initSidebarHover() {
+    const menus = document.querySelectorAll('.side-menu, .sidebar');
+    if (!menus || !menus.length) return;
+
+    function applyInitialState() {
+        menus.forEach(menu => {
+            if (window.innerWidth >= 768) {
+                menu.classList.add('collapsed');
+                menu.classList.remove('expanded');
+            } else {
+                menu.classList.remove('collapsed');
+                menu.classList.remove('expanded');
+            }
+        });
+    }
+
+    menus.forEach(menu => {
+        menu.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 768) {
+                menu.classList.remove('collapsed');
+                menu.classList.add('expanded');
+            }
+        });
+
+        menu.addEventListener('mouseleave', () => {
+            if (window.innerWidth >= 768) {
+                menu.classList.remove('expanded');
+                menu.classList.add('collapsed');
+            }
+        });
+    });
+
+    window.addEventListener('resize', applyInitialState);
+    // apply initial state now
+    applyInitialState();
+}
+
+document.addEventListener('DOMContentLoaded', initSidebarHover);
