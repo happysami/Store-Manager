@@ -1,3 +1,4 @@
+/* --- Existing Dashboard Grid & Cards --- */
 .dashboard {
   display: grid;
   gap: 16px;
@@ -35,4 +36,43 @@
 
 .card.stock p {
   color: var(--primary-dark);
+}
+
+/* ==========================================================
+   NEW: MOBILE RESPONSIVE NAVIGATION STYLES (Under 768px)
+   ========================================================== */
+@media (max-width: 767px) {
+    /* 1. Stack the master layout wrapper vertically instead of side-by-side */
+    .app-layout {
+        flex-direction: column !important;
+    }
+
+    /* 2. Transform the side menu into a hidden sidebar drawer */
+    .side-menu {
+        position: fixed;
+        top: 0;
+        left: -260px; /* Fully off-screen to the left */
+        width: 250px !important;
+        height: 100vh;
+        z-index: 999;
+        transition: left 0.3s ease; /* Smooth slide-out action */
+        box-shadow: 4px 0 24px rgba(15, 23, 42, 0.15);
+    }
+
+    /* 3. Slide the menu out when our JS removes or adds the active class */
+    .side-menu.active {
+        left: 0 !important;
+    }
+
+    /* 4. Let main content expand to fill full screen width */
+    .main-content {
+        width: 100% !important;
+        padding: 16px !important; /* Slightly snugger padding for mobile devices */
+    }
+    
+    /* 5. Keep large dynamic layout elements clean and swipable */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
