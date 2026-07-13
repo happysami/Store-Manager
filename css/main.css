@@ -12,8 +12,12 @@
   --sidebar-bg: #343a40;
 }
 
-
-* { box-sizing: border-box; }
+/* ==========================================================================
+   GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* { 
+  box-sizing: border-box; 
+}
 
 body {
   margin: 0;
@@ -21,6 +25,20 @@ body {
   background: linear-gradient(135deg, #f8fbff 0%, #eef2ff 100%);
   color: var(--text);
 }
+
+button, input, select { 
+  font: inherit; 
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ==========================================================================
+   GLOBAL FLEXBOX LAYOUT CORE
+   ========================================================================== */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -31,50 +49,55 @@ body {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  min-width: 0; /* Prevents the main content from stretching the page layout */
-}
-button, input, select { font: inherit; }
-
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 24px;
+  min-width: 0; 
 }
 
-/* --- App Header --- */
-.app-header {
-  display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  gap: 15px;
+/* --- Mobile Dim Background Overlay --- */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 99;
 }
 
-.app-header h1 { margin: 0; font-size: 1.5rem; flex-grow: 1; }
-
-/* --- Sidebar Layout --- */
-.layout-shell {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 24px;
-  align-items: start;
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sidebar {
+/* --- Mobile Menu Trigger --- */
+.mobile-menu-trigger {
+  display: none;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 18px 12px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-  height: fit-content;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.content-shell {
+/* ==========================================================================
+   SIDEBAR MENU STYLING
+   ========================================================================== */
+.side-menu {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.02);
 }
 
 .menu-btn {
@@ -87,58 +110,33 @@ button, input, select { font: inherit; }
   padding: 14px 16px;
   border-radius: 12px;
   cursor: pointer;
+  font-weight: 500;
   transition: background 0.2s ease, color 0.2s ease;
-}
-
-.menu-btn.active,
-.menu-btn:hover {
-  background: rgba(37, 99, 235, 0.12);
-  color: var(--primary-dark);
-}
-
-/* Collapsible behavior for hover-expand */
-.side-menu,
-.sidebar {
-  transition: width 0.25s ease, padding 0.25s ease;
-  overflow: hidden;
-}
-
-.side-menu.collapsed,
-.sidebar.collapsed {
-  width: 64px !important;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.side-menu.expanded,
-.sidebar.expanded {
-  width: 250px !important;
-  padding-left: 18px;
-  padding-right: 18px;
-}
-
-.side-menu .menu-btn,
-.sidebar .menu-btn {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* --- View Switching --- */
+.menu-btn.active {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.menu-btn:hover {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary-dark);
+}
+
+/* ==========================================================================
+   VIEW MANAGER PANELS
+   ========================================================================== */
 .view-panel { display: none; }
 .view-panel.active { display: block; }
 
-@media (max-width: 1024px) {
-  .layout-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-}
-
-/* --- Buttons & Components --- */
+/* ==========================================================================
+   BUTTONS & UI COMPONENTS
+   ========================================================================== */
 .btn-danger,
 .export-btn,
 .sell-btn,
@@ -168,9 +166,22 @@ button, input, select { font: inherit; }
   box-shadow: none;
 }
 
-button:hover { transform: translateY(-1px); }
+button:hover { 
+  transform: translateY(-1px); 
+}
 
-/* --- Footer Styles --- */
+/* --- App Header & Footer --- */
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  gap: 15px;
+}
+
+.app-header h1 { margin: 0; font-size: 1.5rem; flex-grow: 1; }
+
 .app-footer {
   text-align: center;
   padding: 20px;
@@ -180,3 +191,40 @@ button:hover { transform: translateY(-1px); }
   border-top: 1px solid #eee;
 }
 
+/* ==========================================================================
+   RESPONSIVE MEDIA BREAKPOINTS (Mobile Optimization)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  /* Morph static sidebar to sliding mobile off-canvas drawer layout */
+  .side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    box-shadow: 24px 0 48px rgba(15, 23, 42, 0.15);
+  }
+
+  /* Reveal drawer when triggered via JS toggling classes */
+  .side-menu.active {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-trigger {
+    display: inline-block;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
