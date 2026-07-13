@@ -77,12 +77,25 @@ button, input, select {
   display: none;
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 10px 16px;
+  padding: 12px 18px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;
+  text-align: center;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.mobile-menu-trigger:hover {
+  background: var(--bg);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-trigger:active {
+  transform: translateY(1px);
 }
 
 /* ==========================================================================
@@ -195,8 +208,13 @@ button:hover {
    RESPONSIVE MEDIA BREAKPOINTS (Mobile Optimization)
    ========================================================================== */
 @media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+
   .app-layout {
     flex-direction: column;
+    position: relative;
   }
 
   /* Morph static sidebar to sliding mobile off-canvas drawer layout */
@@ -205,8 +223,12 @@ button:hover {
     top: 0;
     left: 0;
     height: 100vh;
+    width: 260px;
     transform: translateX(-100%);
     box-shadow: 24px 0 48px rgba(15, 23, 42, 0.15);
+    z-index: 101;
+    padding: 20px 16px;
+    overflow-y: auto;
   }
 
   /* Reveal drawer when triggered via JS toggling classes */
@@ -215,16 +237,104 @@ button:hover {
   }
 
   .mobile-menu-trigger {
-    display: inline-block;
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+    z-index: 102;
   }
 
   .main-content {
     padding: 16px;
+    margin-top: 0;
   }
 
   .app-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding: 12px 15px;
+  }
+
+  /* Adjust tables for mobile */
+  table {
+    font-size: 0.875rem;
+  }
+
+  table th, table td {
+    padding: 8px 10px;
+  }
+
+  /* Stack cards on mobile */
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .card {
+    min-width: 100%;
+  }
+
+  /* Make forms more mobile-friendly */
+  .form-group {
+    gap: 12px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group button {
+    width: 100%;
+  }
+
+  /* Adjust flex layouts on mobile */
+  .bank-top-layout {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .bank-top-layout > div {
+    min-width: 100% !important;
+    flex: 1 !important;
+  }
+
+  .header-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+  }
+
+  .main-content {
+    padding: 12px;
+  }
+
+  .app-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .side-menu {
+    width: 75vw;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  table th, table td {
+    padding: 6px 8px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+  }
+
+  .card p {
+    font-size: 1.5rem;
   }
 }
