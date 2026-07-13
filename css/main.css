@@ -11,6 +11,19 @@
   --warning: #f59e0b;
   --sidebar-bg: #343a40;
 }
+/* Global App Framework Layout */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  min-width: 0; 
+}
 
 * { box-sizing: border-box; }
 
