@@ -30,7 +30,15 @@
 
     <div class="container" id="mainAppSection" style="display: none;">
         
+        <!-- Mobile Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+        
         <div class="app-layout">
+            
+            <!-- Mobile Menu Trigger Button -->
+            <button class="mobile-menu-trigger" id="menuToggleBtn" aria-label="Toggle menu">
+                ☰ Menu
+            </button>
             
             <aside class="side-menu" aria-label="Main menu" style="width: 250px; background-color: #f8f9fa; border-right: 1px solid #dee2e6; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
@@ -131,7 +139,7 @@
                     <div class="bank-top-layout" style="display: flex; gap: 20px; align-items: stretch; margin-bottom: 25px; flex-wrap: wrap;">
                         
                         <!-- UPDATED DISPLAY CARD: Holds Totals for Cash, Transfer, and Grand Combined Balance -->
-                        <div class="card" style="flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 15px; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div class="card" style="flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 15px; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div>
                                 <h3 style="margin: 0 0 5px 0; font-size: 0.9rem; color: #666; font-weight: 600;">Total Cash</h3>
                                 <p id="bankTotalCash" style="font-size: 1.5rem; font-weight: bold; margin: 5px 0 0 0; color: #20c997;">$0.00</p>
@@ -146,12 +154,12 @@
                                 <h3 style="margin: 0 0 5px 0; font-size: 1rem; color: #333; font-weight: 700;">Combined Grand Total</h3>
                                 <p id="bankTotalBalance" style="font-size: 2.2rem; font-weight: bold; margin: 5px 0 0 0; color: #28a745;">$0.00</p>
                             </div>
-                            <button type="button" onclick="calculateBankBalance()" style="margin-top: 10px; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-weight: 600; width: 100%;">
+                            <button type="button" onclick="calculateBankBalance()" style="margin-top: 10px; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
                                 Calculate Total Balance
                             </button>
                         </div>
 
-                        <div class="form-container" style="flex: 2; min-width: 320px; margin: 0; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div class="form-container" style="flex: 2; min-width: 320px; margin: 0; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <h2 style="margin-top: 0; margin-bottom: 15px; font-size: 1.25rem;">Log Bank Transaction</h2>
                             <form id="bankTransactionForm" class="form-group" style="display: flex; flex-direction: column; gap: 10px; margin: 0;">
                                 <input type="date" id="transDate" required style="padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
@@ -163,7 +171,7 @@
                                 </select>
 
                                 <div id="methodInputWrapper" style="display: flex; flex-direction: column; width: 100%;">
-                                    <input type="text" id="transMethod" list="methodOptions" placeholder="Type or select Bank (CBE, telebirr, BOA...)" required style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; width: 100%; box-sizing: border-box;">
+                                    <input type="text" id="transMethod" list="methodOptions" placeholder="Type or select Bank (CBE, telebirr, BOA...)" required style="padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
                                     <datalist id="methodOptions">
                                         <option value="CBE">
                                         <option value="telebirr">
@@ -208,11 +216,10 @@
     <script src="js/inventory.js"></script>
     <script src="js/bank.js"></script> 
 
-    <!-- Script to set current date on load -->
-    <!-- Script to set current date and handle mobile side menu auto-closing -->
+    <!-- Mobile Menu Toggle & Initialization Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- 1. EXISTING CODE: SET CURRENT DATE ---
+            // --- 1. SET CURRENT DATE ---
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -225,21 +232,45 @@
             if (itemDateInput) itemDateInput.value = formattedDate;
             if (transDateInput) transDateInput.value = formattedDate;
 
-            // --- 2. NEW CODE: CLOSE SIDE MENU ON MOBILE AFTER CLICK ---
+            // --- 2. MOBILE MENU TOGGLE FUNCTIONALITY ---
+            const menuToggleBtn = document.getElementById('menuToggleBtn');
             const sideMenu = document.querySelector('.side-menu');
+            const menuOverlay = document.getElementById('menuOverlay');
             const menuButtons = document.querySelectorAll('.menu-btn');
 
+            // Toggle menu open/close
+            if (menuToggleBtn) {
+                menuToggleBtn.addEventListener('click', () => {
+                    sideMenu.classList.toggle('active');
+                    menuOverlay.classList.toggle('active');
+                });
+            }
+
+            // Close menu when overlay is clicked
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', () => {
+                    sideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            }
+
+            // Close menu when a menu item is clicked (on mobile)
             menuButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Check if the user is on a mobile screen size (less than 768px wide)
                     if (window.innerWidth < 768) {
-                        // Remove the active/open class that slides the menu into view on mobile
-                        sideMenu.classList.remove('active'); 
-                        
-                        // NOTE: If your CSS uses a different class name to show the menu 
-                        // (like 'open' or 'show'), change 'active' above to match it.
+                        sideMenu.classList.remove('active');
+                        menuOverlay.classList.remove('active');
                     }
                 });
+            });
+
+            // --- 3. HANDLE WINDOW RESIZE ---
+            // Ensure menu is shown when resizing back to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    sideMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                }
             });
         });
     </script>
