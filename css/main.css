@@ -11,7 +11,16 @@
   --warning: #f59e0b;
   --sidebar-bg: #343a40;
 }
-/* Global App Framework Layout */
+
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef2ff 100%);
+  color: var(--text);
+}
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -22,19 +31,10 @@
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  min-width: 0; 
+  min-width: 0; /* Prevents the main content from stretching the page layout */
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f8fbff 0%, #eef2ff 100%);
-  color: var(--text);
-}
-
 button, input, select { font: inherit; }
+
 
 .container {
   max-width: 1280px;
